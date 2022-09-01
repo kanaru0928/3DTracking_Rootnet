@@ -49,6 +49,17 @@ def parse_args():
     return args
 
 class Rootnet:
+    """RootNetの処理を行うクラス
+    
+    Attributes
+    ----------
+    args
+        引数
+    model : nn.Module
+        NNモデル
+    transform : transforms
+        画像に適用するトランスフォーム
+    """
     def __init__(self, args=None, vis=False) -> None:
         if args is None:
             args = Args(0, 18)
@@ -71,6 +82,22 @@ class Rootnet:
         self.transform = transform
     
     def get_root(self, bbox_list, original_img, vis=False):
+        """人物の中心位置を取得
+
+        Parameters
+        ----------
+        bbox_list : array_like
+            BoundingBoxのリスト
+        original_img : np.ndarray
+            OpenCVで取得した画像
+        vis : bool, optional
+            画像出力, by default False
+
+        Returns
+        -------
+        list
+            人物の中心位置
+        """
         transform = self.transform
         model = self.model
         
